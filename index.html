@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bạn có thích tôi không?</title>
+    <style>
+        /* Trang trí cho toàn bộ trang web */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #ffe6e6; /* Màu nền hồng nhạt dễ thương */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            overflow: hidden; /* Ngăn thanh cuộn khi nút "Có" quá to */
+        }
+
+        /* Khung chứa nội dung */
+        #container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        h1 {
+            color: #ff4d4d;
+            font-size: 2em;
+        }
+
+        /* Khung chứa 2 nút */
+        #buttons {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        /* Trang trí chung cho nút */
+        button {
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease; /* Hiệu ứng phóng to/thu nhỏ mượt mà */
+        }
+
+        /* Nút Có */
+        #btn-yes {
+            background-color: #ff4d4d;
+            color: white;
+            padding: 15px 30px;
+            font-size: 20px;
+        }
+
+        #btn-yes:hover {
+            background-color: #ff3333;
+        }
+
+        /* Nút Không */
+        #btn-no {
+            background-color: #e0e0e0;
+            color: #333;
+            padding: 15px 30px;
+            font-size: 20px;
+        }
+
+        /* Class để ẩn phần tử */
+        .hidden {
+            display: none !important;
+        }
+
+        /* Lời nhắn khi bấm Có */
+        #message {
+            font-size: 2.5em;
+            color: #ff4d4d;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="container">
+        <h1 id="question">Bạn có thích tôi không? 🤔</h1>
+        
+        <div id="buttons">
+            <button id="btn-yes">Có</button>
+            <button id="btn-no">Không</button>
+        </div>
+
+        <div id="message" class="hidden">Tớ biết bạn sẽ chọn như vậy mà ❤️</div>
+    </div>
+
+    <script>
+        // Lấy các phần tử từ HTML
+        const btnYes = document.getElementById('btn-yes');
+        const btnNo = document.getElementById('btn-no');
+        const question = document.getElementById('question');
+        const buttonsContainer = document.getElementById('buttons');
+        const message = document.getElementById('message');
+
+        // Kích thước mặc định của nút
+        let yesFontSize = 20;
+        let yesPaddingX = 30;
+        let yesPaddingY = 15;
+        
+        let noFontSize = 20;
+        let noPaddingX = 30;
+        let noPaddingY = 15;
+
+        // Khi bấm nút "Không"
+        btnNo.addEventListener('click', function() {
+            // Nút "Có" to lên
+            yesFontSize += 15;
+            yesPaddingX += 20;
+            yesPaddingY += 10;
+            btnYes.style.fontSize = yesFontSize + 'px';
+            btnYes.style.padding = `${yesPaddingY}px ${yesPaddingX}px`;
+
+            // Nút "Không" nhỏ lại
+            noFontSize -= 3;
+            noPaddingX -= 5;
+            noPaddingY -= 2;
+
+            // Nếu nút "Không" quá nhỏ thì ẩn luôn để ép bấm "Có"
+            if (noFontSize <= 0 || noPaddingX <= 0) {
+                btnNo.style.display = 'none';
+            } else {
+                btnNo.style.fontSize = noFontSize + 'px';
+                btnNo.style.padding = `${noPaddingY}px ${noPaddingX}px`;
+            }
+        });
+
+        // Khi bấm nút "Có"
+        btnYes.addEventListener('click', function() {
+            // Ẩn câu hỏi và các nút
+            question.classList.add('hidden');
+            buttonsContainer.classList.add('hidden');
+            
+            // Hiện lời nhắn
+            message.classList.remove('hidden');
+        });
+    </script>
+
+</body>
+</html>
